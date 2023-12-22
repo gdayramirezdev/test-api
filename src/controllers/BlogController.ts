@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 import BlogService from '../services/BlogService';
 import { TBlog } from '../types';
 import { Op } from '@sequelize/core';
+import tools from '../tools';
 
 export class BlogController {
   static getAllBlogs(request: Request, response: Response): void {
@@ -10,29 +11,29 @@ export class BlogController {
       where: {},
     };
 
-    if (title) {
+    if (tools.is.string(title)) {
       params.where = {
         ...params.where,
         title: {
-          [Op.like]: `%${title}%`
+          [Op.like]: `%${tools.sanitize(title)}%`
         }
       }
     }
 
-    if (autor) {
+    if (tools.is.string(autor)) {
       params.where = {
         ...params.where,
         autor: {
-          [Op.like]: `%${autor}%`
+          [Op.like]: `%${tools.sanitize(autor)}%`
         }
       }
     }
 
-    if (content) {
+    if (tools.is.string(content)) {
       params.where = {
         ...params.where,
         content: {
-          [Op.like]: `%${content}%`
+          [Op.like]: `%${tools.sanitize(content)}%`
         }
       }
     }
