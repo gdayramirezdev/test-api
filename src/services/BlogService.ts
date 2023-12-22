@@ -1,15 +1,31 @@
 import BlogsModel from "../models/blogs";
+import { TBlog } from "../types";
 
 export class BlogService {
-  static async getAll(): Promise<any> {
+  static async getAll(params: any): Promise<any> {
     try {
-      const userData = await BlogsModel.findAll();
-
-      console.log('Connection has been established successfully.');
+      const userData = await BlogsModel.findAll(params);
       return userData;
     } catch (error) {
-      console.error('Unable to connect to the database:', error);
       return [];
+    }
+  }
+
+  static async getOne(id: Number): Promise<any> {
+    try {
+      const userData = await BlogsModel.findByPk(id);
+      return userData;
+    } catch (error) {
+      return {};
+    }
+  }
+
+  static async createOne(blog: TBlog): Promise<TBlog | {}>{
+    try {
+      await BlogsModel.create(blog);
+      return blog;
+    } catch (error) {
+      return {}
     }
   }
 }
