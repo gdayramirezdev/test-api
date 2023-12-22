@@ -1,4 +1,4 @@
-export type Blog = {
+export type TBlog = {
   title: string;
   autor: string;
   puiblishAt: Date;
