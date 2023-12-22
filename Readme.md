@@ -5,8 +5,8 @@
 #### Ejecutar la siguiente linea de comandos
 
 ```bash
-  git 
-  cd 
+  git https://github.com/gdayramirezdev/test-api
+  cd test-api
   npm install
   npm run dev
 ```
