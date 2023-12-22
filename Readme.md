@@ -8,5 +8,6 @@
   git https://github.com/gdayramirezdev/test-api
   cd test-api
   npm install
-  npm run dev
+  npm run build
+  npm start
 ```
