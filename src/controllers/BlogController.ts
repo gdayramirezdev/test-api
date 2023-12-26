@@ -1,8 +1,7 @@
 import { Request, Response } from 'express';
-import BlogService from '../services/BlogService';
-import { TBlog } from '../types';
 import { Op } from '@sequelize/core';
 import tools from '../tools';
+import BlogService from '../services/BlogService';
 
 export class BlogController {
   static getAllBlogs(request: Request, response: Response): void {
@@ -15,7 +14,7 @@ export class BlogController {
       params.where = {
         ...params.where,
         title: {
-          [Op.like]: `%${tools.sanitize(title)}%`
+          [Op.like]: `%${title}%`
         }
       }
     }
@@ -24,7 +23,7 @@ export class BlogController {
       params.where = {
         ...params.where,
         autor: {
-          [Op.like]: `%${tools.sanitize(autor)}%`
+          [Op.like]: `%${autor}%`
         }
       }
     }
@@ -33,7 +32,7 @@ export class BlogController {
       params.where = {
         ...params.where,
         content: {
-          [Op.like]: `%${tools.sanitize(content)}%`
+          [Op.like]: `%${content}%`
         }
       }
     }
@@ -52,7 +51,6 @@ export class BlogController {
 
   static createBlog(request: Request, response: Response): void{
     const { body } = request;
-    console.log('Body', body)
     BlogService.createOne(body)
       .then((result) => response.status(200).send({ message: 'success', data: result }))
       .catch((error) => response.status(400).send({ message: 'error', data: error }));

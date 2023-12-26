@@ -1,5 +1,20 @@
-import { DataTypes } from '@sequelize/core';
+import { DataTypes, Sequelize, Model, BuildOptions } from '@sequelize/core';
+
 import sequelize from '../databse';
+
+export interface BlogAttributes {
+  id: number;
+  title: string;
+  autor: string;
+  puiblishAt: Date;
+  content: string;
+};
+
+interface BlogInstance extends Model<BlogAttributes>, BlogAttributes {};
+
+export type BlogModelStatic = typeof Model & {
+  new (values?: object, options?: BuildOptions): BlogInstance;
+};
 
 const BlogsModel = sequelize.define('blogs', {
   // Model attributes are defined here
@@ -20,11 +35,17 @@ const BlogsModel = sequelize.define('blogs', {
     type: DataTypes.TEXT
     // allowNull defaults to true, except for primary keys
   },
+  shortContent: {
+    type: DataTypes.VIRTUAL,
+    get() {
+      return this.content.slice(0, 2);
+    },
+  }
 }, {
   // Other model options go here
   // dont use createdAt/update
   timestamps: false,
-});
+}) as BlogModelStatic;
 
 
 export default BlogsModel;

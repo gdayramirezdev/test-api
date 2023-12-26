@@ -12,6 +12,17 @@ export default {
       if (typeof text !== 'string') return false;
 
       return true;
+    },
+  },
+  getJoiDetails: (error: { details: { message: string }[] }): string => {
+    if (Array.isArray(error?.details)) {
+      const details = error?.details?.map(
+        (detail: { message: string }) => detail.message
+      );
+      return details.join('|');
+    } else {
+      console.log('getJoiDetails details is not an array');
+      return error.details;
     }
-  }
-}
+  },
+};
