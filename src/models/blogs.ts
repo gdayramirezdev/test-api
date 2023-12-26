@@ -38,7 +38,7 @@ const BlogsModel = sequelize.define('blogs', {
   shortContent: {
     type: DataTypes.VIRTUAL,
     get() {
-      return this.content.slice(0, 2);
+      return this.content.slice(0, 70);
     },
   }
 }, {
