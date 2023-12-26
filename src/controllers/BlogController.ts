@@ -14,48 +14,55 @@ export class BlogController {
       params.where = {
         ...params.where,
         title: {
-          [Op.like]: `%${title}%`
-        }
-      }
+          [Op.like]: `%${title}%`,
+        },
+      };
     }
 
     if (tools.is.string(autor)) {
       params.where = {
         ...params.where,
         autor: {
-          [Op.like]: `%${autor}%`
-        }
-      }
+          [Op.like]: `%${autor}%`,
+        },
+      };
     }
 
     if (tools.is.string(content)) {
       params.where = {
         ...params.where,
         content: {
-          [Op.like]: `%${content}%`
-        }
-      }
+          [Op.like]: `%${content}%`,
+        },
+      };
     }
 
     BlogService.getAll(params)
-      .then((result) => response.status(200).send({ message: 'success', data: result }))
-      .catch((error) => response.status(400).send({ message: 'error', data: error }));
+      .then((result) => {
+        response.status(200).send({ message: 'success', data: result });
+      })
+      .catch((error) => {
+        response.status(400).send({ message: 'error', error });
+      });
   }
 
   static getOneBlog(request: Request, response: Response): void {
     const { id } = request.params;
     BlogService.getOne(parseInt(id))
-      .then((result) => response.status(200).send({ message: 'success', data: result }))
-      .catch((error) => response.status(400).send({ message: 'error', data: error }));
+      .then((result) =>
+        response.status(200).send({ message: 'success', data: result })
+      )
+      .catch((error) => response.status(400).send({ message: 'error', error }));
   }
 
-  static createBlog(request: Request, response: Response): void{
+  static createBlog(request: Request, response: Response): void {
     const { body } = request;
     BlogService.createOne(body)
-      .then((result) => response.status(200).send({ message: 'success', data: result }))
-      .catch((error) => response.status(400).send({ message: 'error', data: error }));
+      .then((result) =>
+        response.status(200).send({ message: 'success', data: result })
+      )
+      .catch((error) => response.status(400).send({ message: 'error', error }));
   }
-
 }
 
 export default BlogController;

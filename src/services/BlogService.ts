@@ -8,8 +8,9 @@ export class BlogService {
       const userData = await BlogsModel.findAll(params);
       return userData;
     } catch (error: any) {
+      console.log('Error: ', error);
       console.log('Error on BlogService.getAll, params:', params)
-      return [];
+      throw new Error('Internal server error');
     }
   };
 
@@ -17,8 +18,9 @@ export class BlogService {
     try {
       return await BlogsModel.findByPk(id);
     } catch (error: any) {
+      console.log('Error: ', error);
       console.log('Error on BlogService.getOne, id:', id)
-      return {};
+      throw new Error('Internal server error');
     }
   };
 
@@ -31,9 +33,9 @@ export class BlogService {
         return await BlogsModel.create(blog);
       }
     } catch (error: any) {
-      console.log('Error on BlogService.create, message:', error?.message);
+      console.log('Error on BlogService.create, message:', error);
       console.log('Error on BlogService.create, blog:', blog);
-      return {};
+      throw new Error('Internal server error');
     }
   };
 }
