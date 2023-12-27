@@ -6,7 +6,7 @@ export interface BlogAttributes {
   id: number;
   title: string;
   autor: string;
-  puiblishAt: Date;
+  publishAt: Date;
   content: string;
 };
 
@@ -27,7 +27,7 @@ const BlogsModel = sequelize.define('blogs', {
     type: DataTypes.TEXT
     // allowNull defaults to true, except for primary keys
   },
-  puiblishAt: {
+  publishAt: {
     type: DataTypes.DATE
     // allowNull defaults to true, except for primary keys
   },

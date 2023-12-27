@@ -28,7 +28,7 @@ export class BlogService {
     try {
       const validatedObject = BlogSchema.validate(blog);
       if (validatedObject.error) {
-        return tools.getJoiDetails(validatedObject.error);
+        throw new Error(tools.getJoiDetails(validatedObject.error)); 
       } else {
         return await BlogsModel.create(blog);
       }
